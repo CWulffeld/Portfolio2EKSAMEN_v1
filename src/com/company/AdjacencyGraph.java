@@ -44,7 +44,7 @@ public class AdjacencyGraph {
         Edge newE2=new Edge( to, from, weight);
     }*/
 
-    public void PrintGraph(){
+  /*  public void PrintGraph(){
 
         for(int i=0;i<Vertices.size();i++){
             System.out.println(" Destination "+Vertices.get(i).name+" is shipping container amount to: ");
@@ -54,7 +54,7 @@ public class AdjacencyGraph {
             }
         }
     }
-
+*/
 
 }
 
