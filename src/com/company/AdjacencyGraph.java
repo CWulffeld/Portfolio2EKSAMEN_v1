@@ -1,3 +1,6 @@
+//Indholder af klasserne; AdjanacyGraph, Vertex og Edge  er udleveret af Mads Rosendahl i undervisning.
+// Koden findes på Software Developments Moodle side
+
 package com.company;
 
 import java.util.ArrayList;
