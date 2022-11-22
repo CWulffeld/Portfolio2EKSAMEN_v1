@@ -83,8 +83,8 @@ public class Flow {
 
                 int idxf = adjDirectedG.Vertices.indexOf(f);
                 int idxt = adjDirectedG.Vertices.indexOf(t);
-                saldo[idxf] -= w;
-                saldo[idxt] += w;
+                saldo[idxf] -= w; //Der hvor det er fra skal weight fjernes
+                saldo[idxt] += w; //Der hvor det skal til, tilføjes weight
                 names[idxf] = v.toString();
 
             }
