@@ -1,3 +1,5 @@
+//Anna Borg, Christine Van Wulffeld og Laura Sofie Juel Nielsen
+
 package com.company;
 
 public class Main {
