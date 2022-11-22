@@ -110,7 +110,6 @@ public class Flow {
 
     public void flytContainers() {
         int flyt;
-
         int imin = 0, iplus = 0; //counter
         boolean run = true;
         while (run) {
