@@ -4,20 +4,20 @@ import java.util.ArrayList;
 
 public class Flow {
 
-   AdjacencyGraph adjDirectedG = createDirectedAdj();
+    AdjacencyGraph adjDirectedG = createDirectedAdj();
     int[] saldo = new int[adjDirectedG.Vertices.size()];
     String[] names = new String[adjDirectedG.Vertices.size()];
     int[] sPlus = new int[adjDirectedG.Vertices.size()];
     int[] sMinus = new int[adjDirectedG.Vertices.size()];
     int flytCost = 0;
 
-    public void PrintGraph(){
+    public void PrintGraph() {
 
-        for(int i=0;i<adjDirectedG.Vertices.size();i++){
-            System.out.println(" Destination "+adjDirectedG.Vertices.get(i).name+" is shipping container amount to: ");
-            Vertex current=adjDirectedG.Vertices.get(i);
-            for (Edge e: current.OutEdge) {
-                System.out.println(e.to.name +" with container amount: "+e.weight);
+        for (int i = 0; i < adjDirectedG.Vertices.size(); i++) {
+            System.out.println(" Destination " + adjDirectedG.Vertices.get(i).name + " is shipping container amount to: ");
+            Vertex current = adjDirectedG.Vertices.get(i);
+            for (Edge e : current.OutEdge) {
+                System.out.println(e.to.name + " with container amount: " + e.weight);
             }
         }
     }
@@ -75,7 +75,7 @@ public class Flow {
 
     }
 
-    public void runVertexAndEdges(){
+    public void runVertexAndEdges() {
         for (Vertex v : adjDirectedG.Vertices) {
             for (Edge e : v.OutEdge) {
                 Vertex f = e.from;
@@ -90,14 +90,15 @@ public class Flow {
 
             }
         }
-                System.out.println();
+        System.out.println();
+
         for (int i = 0; i < saldo.length; i++) {
             System.out.println("port: " + names[i] + " surplus: " + saldo[i]);
         }
         System.out.println();
     }
 
-    public void plusMinusArray(){
+    public void plusMinusArray() {
         for (int i = 0; i < saldo.length; i++) {
             if (saldo[i] > 0) {
                 sPlus[i] = saldo[i];
@@ -108,36 +109,37 @@ public class Flow {
         }
     }
 
-    public void flytContainers(){
+    public void flytContainers() {
         int flyt;
 
-        int imin=0, iplus=0; //counter
+        int imin = 0, iplus = 0; //counter
         boolean run = true;
-        while(run){
-            if(sMinus[imin]==0){
+        while (run) {
+            if (sMinus[imin] == 0) {
                 imin++;
             }
-            if(sPlus[iplus]==0){
+            if (sPlus[iplus] == 0) {
                 iplus++;
             }
-            if(imin>=saldo.length){
+            if (imin >= saldo.length) {
                 run = false;
             }
-            if(iplus>= saldo.length){
-                run = false; continue;
+            if (iplus >= saldo.length) {
+                run = false;
+                continue;
             }
 
 
             //Flytter containerne
-            if(-sMinus[imin] <= sPlus[iplus]) { //Tjekker hvor mange der skal flyttes. Finder det laveste tal (ved at begge værdier i sPlus og sMinus
+            if (-sMinus[imin] <= sPlus[iplus]) { //Tjekker hvor mange der skal flyttes. Finder det laveste tal (ved at begge værdier i sPlus og sMinus
                 flyt = -sMinus[imin];
-                flytCost+= flyt;
+                flytCost += flyt;
                 System.out.println("Flyt: " + flyt + " fra " + names[iplus] + " til " + names[imin]);
                 sPlus[iplus] -= flyt;
                 sMinus[imin] += flyt;
-            }  else if (sPlus[iplus]< -sMinus[imin]){
+            } else if (sPlus[iplus] < -sMinus[imin]) {
                 flyt = sPlus[iplus];
-                flytCost+=flyt;
+                flytCost += flyt;
                 System.out.println("Flyt: " + flyt + " fra " + names[iplus] + " til " + names[imin]);
                 sPlus[iplus] -= flyt;
                 sMinus[imin] += flyt;
@@ -148,8 +150,8 @@ public class Flow {
         printFlytCostPris();
     }
 
-    public void printFlytCostPris(){
-        System.out.println("TOTAL: " + flytCost*100 + " Dollars") ;
+    public void printFlytCostPris() {
+        System.out.println("TOTAL: " + flytCost * 100 + " Dollars");
     }
 
 
