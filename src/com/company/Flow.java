@@ -126,8 +126,6 @@ public class Flow {
                 run = false;
                 continue;
             }
-
-
             //Flytter containerne
             if (-sMinus[imin] <= sPlus[iplus]) { //Tjekker hvor mange der skal flyttes. Finder det laveste tal (ved at begge værdier i sPlus og sMinus
                 flyt = -sMinus[imin];
