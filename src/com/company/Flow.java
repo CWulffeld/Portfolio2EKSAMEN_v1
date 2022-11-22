@@ -152,6 +152,4 @@ public class Flow {
     public void printFlytCostPris() {
         System.out.println("TOTAL: " + flytCost * 100 + " Dollars");
     }
-
-
 }
