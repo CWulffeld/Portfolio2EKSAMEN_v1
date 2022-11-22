@@ -75,7 +75,7 @@ public class Flow {
     }
 
     public void runVertexAndEdges() {
-        for (Vertex v : adjDirectedG.Vertices) {
+        for (Vertex v : adjDirectedG.Vertices) { //For hver havn, løber alle flows igennem
             for (Edge e : v.OutEdge) {
                 Vertex f = e.from;
                 Vertex t = e.to;
