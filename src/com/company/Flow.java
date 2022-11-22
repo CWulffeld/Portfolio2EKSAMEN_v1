@@ -12,7 +12,6 @@ public class Flow {
     int flytCost = 0;
 
     public void PrintGraph() {
-
         for (int i = 0; i < adjDirectedG.Vertices.size(); i++) {
             System.out.println(" Destination " + adjDirectedG.Vertices.get(i).name + " is shipping container amount to: ");
             Vertex current = adjDirectedG.Vertices.get(i);
