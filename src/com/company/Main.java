@@ -4,7 +4,7 @@ package com.company;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { //kører metoderne i den rækkefølge som vi gerne vil have
 
         Flow flow = new Flow();
         flow.PrintGraph();

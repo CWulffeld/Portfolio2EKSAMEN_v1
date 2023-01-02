@@ -7,16 +7,17 @@ public class Flow {
     //Almindelig arrays (4 nedenstående)
     int[] saldo = new int[adjDirectedG.Vertices.size()];
     String[] names = new String[adjDirectedG.Vertices.size()];
-    int[] sPlus = new int[adjDirectedG.Vertices.size()];
+    int[] sPlus = new int[adjDirectedG.Vertices.size()]; //det kunne have været en fordel at lave ArrayLists
     int[] sMinus = new int[adjDirectedG.Vertices.size()];
     int flytCost = 0;
 
-    public void PrintGraph() {
-        for (int i = 0; i < adjDirectedG.Vertices.size(); i++) {
-            System.out.println(" Destination " + adjDirectedG.Vertices.get(i).name + " is shipping container amount to: ");
-            Vertex current = adjDirectedG.Vertices.get(i);
-            for (Edge e : current.OutEdge) {
-                System.out.println(e.to.name + " with container amount: " + e.weight);
+    public void PrintGraph() { //Nested for-loop
+        //Første for-loop lineær tid - da der hele tiden vil blive lagt til, men grundet vores foreach bliver det quadratic time O(N^2) da det er en løkke inden i en løkke.
+        for (int i = 0; i < adjDirectedG.Vertices.size(); i++) { //Fra AdjancencyGraph klassen, hvor vi har alle navnene. Arraylisten skal køres så længe der ekistserer havne i vertices
+            System.out.println(" Destination " + adjDirectedG.Vertices.get(i).name + " is shipping container amount to: "); //Antal containers der bliver sendt fra en given haven
+            Vertex current = adjDirectedG.Vertices.get(i); //Vertex: Er current
+            for (Edge e : current.OutEdge) { //For hver current havn, løbes hvert outedge (udgående edges) igennem
+                System.out.println(e.to.name + " with container amount: " + e.weight); //"til havnen" printes ud, med det givende antal containere.
             }
         }
     }
@@ -32,8 +33,8 @@ public class Flow {
         Vertex Zan = new Vertex("Zan");
         Vertex Sal = new Vertex("Sal");
 
-        //tilføjer Vertex til arrayliste
-        newG.addVertex(Jaw);
+        //tilføjer Vertex (ovenstående objekter) til arrayliste
+        newG.addVertex(Jaw); //Tilføjer ovenstående objekter (Havne) til newG arraylisten
         newG.addVertex(Tan);
         newG.addVertex(Dar);
         newG.addVertex(Mom);
@@ -98,14 +99,14 @@ public class Flow {
         }
         System.out.println();
 
-        for (int i = 0; i < saldo.length; i++) {
+        for (int i = 0; i < saldo.length; i++) { //Denne for-løkke printer navnet på havnene og deres saldo (antal containere)
             System.out.println("port: " + names[i] + " surplus: " + saldo[i]);
         }
         System.out.println();
     }
 
-    public void plusMinusArray() {
-        for (int i = 0; i < saldo.length; i++) {
+    public void plusMinusArray() { //to Arrays - måske struktureret anderledes med en liste og lavet f.eks. bubble sort.
+        for (int i = 0; i < saldo.length; i++) { //Lineær søgning
             if (saldo[i] > 0) {
                 sPlus[i] = saldo[i];
             }
@@ -117,9 +118,9 @@ public class Flow {
 
     public void flytContainers() {
         int flyt;
-        int imin = 0, iplus = 0; //counter
-        boolean run = true;
-        while (run) {
+        int imin = 0, iplus = 0; //imin + iplus er counters
+        boolean run = true; //default true
+        while (run) { //så længe run er true så skal den køre
             if (sMinus[imin] == 0) {
                 imin++; //Counter der flytter det indeks, som nedenstående tilgår (sMinus)
             }

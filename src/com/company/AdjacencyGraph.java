@@ -19,18 +19,19 @@ public class AdjacencyGraph {
         Vertices.add(v); //v fra metodens parameter
     }
 
-    public void addEdge(Vertex from, Vertex to, Integer container) {
-        if (!(Vertices.contains(from) && Vertices.contains(to))) {
+    public void addEdge(Vertex from, Vertex to, Integer container) { //forbindelsen mellem - directed graph fordi vi har vetex from og to
+        if (!(Vertices.contains(from) && Vertices.contains(to))) { //Tjekker om fra og til havnene findes i arrayListen.
             System.out.println("Vertices missing from graph");
             return;
         }
-        Edge newE = new Edge(from, to, container);
+       Edge newE = new Edge(from, to, container); //Lokal variabel anvendes ikke, men kunstruktøren i Edge kaldes (sker når vi skriver new)
+        //Kommer ned i Edge konstruktøren i Edge klassen.
     }
 }
 
 class Vertex {
-    String name;
-    ArrayList<Edge> OutEdge;
+    String name; //Navnet på havnen
+    ArrayList<Edge> OutEdge; // arraylist med typen Edge - Bliver tilføjet fra Edge klassen
 
     public Vertex(String name) {
         this.name = name;
