@@ -2,7 +2,7 @@ package com.company;
 import java.util.ArrayList;
 
 public class Flow {
-
+//
     AdjacencyGraph adjDirectedG = createDirectedAdj(); //Kalder metoden createDirectedAdj, som returnere newG fra createDirectedAdj(). Denne metode har typen AdjacencyGraph (Klassen)
     //Almindelig arrays (4 nedenstående)
     int[] saldo = new int[adjDirectedG.Vertices.size()];
