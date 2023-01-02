@@ -6,14 +6,17 @@ package com.company;
 import java.util.ArrayList;
 
 public class AdjacencyGraph {
+
     ArrayList<Vertex> Vertices;
 
+    //Konstruktør
     public AdjacencyGraph() {
-        Vertices = new ArrayList<Vertex>();
+        Vertices = new ArrayList<Vertex>(); //ArrayListe med Vertices (Havne)
     }
 
+    //Metode til at tilføje vertex (Vi kan tilføje nye havne)
     public void addVertex(Vertex v) {
-        Vertices.add(v);
+        Vertices.add(v); //v fra metodens parameter
     }
 
     public void addEdge(Vertex from, Vertex to, Integer container) {
@@ -31,9 +34,10 @@ class Vertex {
 
     public Vertex(String name) {
         this.name = name;
-        OutEdge = new ArrayList<Edge>();
+        OutEdge = new ArrayList<Edge>(); //Udgående edges fra den pågældende Vertex (Havn)
     }
 
+    //Anvendes til at printe navnet til konsollen
     public String toString() {
         return name;
     }
@@ -48,6 +52,6 @@ class Edge {
         this.from = from;
         this.to = to;
         this.weight = weight;
-        from.OutEdge.add(this);
+        from.OutEdge.add(this); // tilføjer til OutEdge i Vertex Klassen. This referer til klassen og derved følgende variabler; this.from, this.to og this.weight
     }
 }

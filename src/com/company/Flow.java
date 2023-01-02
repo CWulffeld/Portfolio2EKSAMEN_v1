@@ -1,10 +1,10 @@
 package com.company;
-
 import java.util.ArrayList;
 
 public class Flow {
 
-    AdjacencyGraph adjDirectedG = createDirectedAdj();
+    AdjacencyGraph adjDirectedG = createDirectedAdj(); //Kalder metoden createDirectedAdj, som returnere newG fra createDirectedAdj(). Denne metode har typen AdjacencyGraph (Klassen)
+    //Almindelig arrays (4 nedenstående)
     int[] saldo = new int[adjDirectedG.Vertices.size()];
     String[] names = new String[adjDirectedG.Vertices.size()];
     int[] sPlus = new int[adjDirectedG.Vertices.size()];
@@ -22,10 +22,9 @@ public class Flow {
     }
 
     public AdjacencyGraph createDirectedAdj() {
-        AdjacencyGraph newG = new AdjacencyGraph();
-
-        //Laver en ny Vertex med navn
-        Vertex Jaw = new Vertex("Jaw");
+        AdjacencyGraph newG = new AdjacencyGraph(); //Kalder AdjacencyGraph klassens konstruktør som laver ny arrayliste (Vertices) som tager Vertex
+        //Laver en ny Vertex med navn (Havn) - Havne tilføjes som objekter.
+        Vertex Jaw = new Vertex("Jaw"); //Nye objekter af Vertex klassen
         Vertex Tan = new Vertex("Tan");
         Vertex Dar = new Vertex("Dar");
         Vertex Mom = new Vertex("Mom");
@@ -70,21 +69,29 @@ public class Flow {
         newG.addEdge(Zan, Zan, 0);
         newG.addEdge(Sal, Sal, 0);
 
+
         return newG;
 
     }
 
     public void runVertexAndEdges() {
-        for (Vertex v : adjDirectedG.Vertices) { //For hver havn, løber alle flows igennem
-            for (Edge e : v.OutEdge) {
-                Vertex f = e.from;
-                Vertex t = e.to;
-                int w = e.weight;
+        //2 foreach løkker + foreach løkke i indefOf
+        for (Vertex v : adjDirectedG.Vertices) { //For hver vertex løbes edges igennem (Her finder den havn)
+            for (Edge e : v.OutEdge) { //Her løbes edges igennem (Her finder den edges tilknyttet havn) Det ligges i variable nedenstående:
+                Vertex f = e.from; //Fra havenen
+                Vertex t = e.to; //Til havnen
+                int w = e.weight; //Antal containere for den specifikke edge
 
-                int idxf = adjDirectedG.Vertices.indexOf(f);
+                //Indeks af fra havn (f), tildeles variablen idxf
+                int idxf = adjDirectedG.Vertices.indexOf(f); //default foreach løkke, arrayliste metode
+                //Indeks af til havn (t) tildeles variablen idxt
                 int idxt = adjDirectedG.Vertices.indexOf(t);
-                saldo[idxf] -= w; //Der hvor det er fra skal weight fjernes
-                saldo[idxt] += w; //Der hvor det skal til, tilføjes weight
+
+                //I saldo arrayet, minusses/fjernes den pågældende weight (containers) fra vertex f (from)
+                //Hvorefter samme weight ligges til fra vertex t.
+                //LÆngden af saldo er det samme som Vertices -> Dette betyder at indeks for Vertices er identisk med saldos indeks. På den måde holder vi styr på havnen
+                saldo[idxf] -= w; //Havnen/vertex hvor weight skal minusses/fjernes
+                saldo[idxt] += w; //Havnen/vertex hvor weigth skal plusses
                 names[idxf] = v.toString();
 
             }
@@ -114,10 +121,10 @@ public class Flow {
         boolean run = true;
         while (run) {
             if (sMinus[imin] == 0) {
-                imin++;
+                imin++; //Counter der flytter det indeks, som nedenstående tilgår (sMinus)
             }
             if (sPlus[iplus] == 0) {
-                iplus++;
+                iplus++; //Counter der flytter det indeks som nedenstående tilgår (sPlus)
             }
             if (imin >= saldo.length) {
                 run = false;
@@ -129,13 +136,13 @@ public class Flow {
             }
 
             //Flytter containerne
-            if (-sMinus[imin] <= sPlus[iplus]) { //Tjekker hvor mange der skal flyttes. Finder det laveste tal (ved at begge værdier i sPlus og sMinus
-                flyt = -sMinus[imin];
-                flytCost += flyt;
+            if (-sMinus[imin] <= sPlus[iplus]) { //Tjekker hvor mange der skal flyttes. Finder det laveste tal (ved at begge værdier i sPlus og sMinus er positivt tal) Derfor der er minus fortegn ved sMinus
+                flyt = -sMinus[imin]; //Antal contianers der flyttes, ligge si variablen flyt
+                flytCost += flyt; //Antal containere der flyttes ligges i flytCost variabel
                 System.out.println("Flyt: " + flyt + " fra " + names[iplus] + " til " + names[imin]);
-                sPlus[iplus] -= flyt;
-                sMinus[imin] += flyt;
-            } else if (sPlus[iplus] < -sMinus[imin]) {
+                sPlus[iplus] -= flyt; //de flyttede containere minusses fra sPlus array
+                sMinus[imin] += flyt; //de flyttede containere plusses på sMinus
+            } else if (sPlus[iplus] < -sMinus[imin]) { //Hvis værdien på indeks iPlus i sPlus array er mindre end -sMinus[imin]
                 flyt = sPlus[iplus];
                 flytCost += flyt;
                 System.out.println("Flyt: " + flyt + " fra " + names[iplus] + " til " + names[imin]);
@@ -147,6 +154,7 @@ public class Flow {
         }
         printFlytCostPris();
     }
+
 
     public void printFlytCostPris() {
         System.out.println("TOTAL: " + flytCost * 100 + " Dollars");
