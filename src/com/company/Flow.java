@@ -1,5 +1,6 @@
 package com.company;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Flow {
 //
@@ -42,7 +43,7 @@ public class Flow {
         newG.addVertex(Zan);
         newG.addVertex(Sal);
 
-        //Fra en destination til en anden -> hvor mange containers der bliver flyttet
+        //Fra en destination til en anden -> hvor mange containers der bliver flyttet. I Vertex klasse er der en OutEdgeArrayListe
         //Fra havn Jaw
         newG.addEdge(Jaw, Dar, 2000);
         newG.addEdge(Jaw, Mom, 2000);
@@ -77,22 +78,28 @@ public class Flow {
 
     public void runVertexAndEdges() {
         //2 foreach løkker + foreach løkke i indefOf
+        System.out.println("Saldo inden for-løkke: " + Arrays.toString(saldo));
+
         for (Vertex v : adjDirectedG.Vertices) { //For hver vertex løbes edges igennem (Her finder den havn)
-            for (Edge e : v.OutEdge) { //Her løbes edges igennem (Her finder den edges tilknyttet havn) Det ligges i variable nedenstående:
+            for (Edge e : v.OutEdge) { //Her løbes edges igennem for den specifikke vertex i ovensåtende foeach loop (Her finder den edges tilknyttet havn) Det ligges i variable nedenstående:
                 Vertex f = e.from; //Fra havenen
                 Vertex t = e.to; //Til havnen
                 int w = e.weight; //Antal containere for den specifikke edge
 
                 //Indeks af fra havn (f), tildeles variablen idxf
                 int idxf = adjDirectedG.Vertices.indexOf(f); //default foreach løkke, arrayliste metode
+                //System.out.println("IDXF: " + idxf);
                 //Indeks af til havn (t) tildeles variablen idxt
                 int idxt = adjDirectedG.Vertices.indexOf(t);
+                //System.out.println("IDXT: " + idxt);
 
                 //I saldo arrayet, minusses/fjernes den pågældende weight (containers) fra vertex f (from)
                 //Hvorefter samme weight ligges til fra vertex t.
                 //LÆngden af saldo er det samme som Vertices -> Dette betyder at indeks for Vertices er identisk med saldos indeks. På den måde holder vi styr på havnen
                 saldo[idxf] -= w; //Havnen/vertex hvor weight skal minusses/fjernes
+                //System.out.println("Kald lige efter Fra: " + Arrays.toString(saldo));
                 saldo[idxt] += w; //Havnen/vertex hvor weigth skal plusses
+                //System.out.println("Kald lige efter Til: " + Arrays.toString(saldo));
                 names[idxf] = v.toString();
 
             }
@@ -137,8 +144,9 @@ public class Flow {
             }
 
             //Flytter containerne
+            //-sMinus mindre end eller lig sPlus
             if (-sMinus[imin] <= sPlus[iplus]) { //Tjekker hvor mange der skal flyttes. Finder det laveste tal (ved at begge værdier i sPlus og sMinus er positivt tal) Derfor der er minus fortegn ved sMinus
-                flyt = -sMinus[imin]; //Antal contianers der flyttes, ligge si variablen flyt
+                flyt = -sMinus[imin]; //Antal contianers der flyttes, det laveste tal. Dette ved vi fra ovenstående statement. Ligges i variablen flyt
                 flytCost += flyt; //Antal containere der flyttes ligges i flytCost variabel
                 System.out.println("Flyt: " + flyt + " fra " + names[iplus] + " til " + names[imin]);
                 sPlus[iplus] -= flyt; //de flyttede containere minusses fra sPlus array

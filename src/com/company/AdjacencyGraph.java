@@ -31,12 +31,14 @@ public class AdjacencyGraph {
 
 class Vertex {
     String name; //Navnet på havnen
+
     ArrayList<Edge> OutEdge; // arraylist med typen Edge - Bliver tilføjet fra Edge klassen
 
     public Vertex(String name) {
         this.name = name;
         OutEdge = new ArrayList<Edge>(); //Udgående edges fra den pågældende Vertex (Havn)
     }
+
 
     //Anvendes til at printe navnet til konsollen
     public String toString() {
